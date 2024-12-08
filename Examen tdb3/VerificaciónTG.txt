@@ -1,0 +1,181 @@
+MySQL Shell 8.0.40
+
+Copyright (c) 2016, 2024, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 52
+Server version: 8.0.40 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > INSERT INTO pacientes (paciente_id, nombre, apellido_pat, apellido_mat, fecha_nacimiento, peso, altura, numero_seguro_social, genero)
+                               -> VALUES (100, 'Arthur', 'Morgan', 'López', '1952-02-22', 70, 1.89, '10110', 'masculino');
+ERROR: 1046 (3D000): No database selected
+ MySQL  localhost:3306 ssl  SQL > SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| ejemplo            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| tbd3_ex            |
+| world              |
++--------------------+
+8 rows in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  SQL > SHOW TRIGGERS;
+ERROR: 1046 (3D000): No database selected
+ MySQL  localhost:3306 ssl  SQL > USE tbd3_ex;
+Default schema set to `tbd3_ex`.
+Fetching global names, object names from `tbd3_ex` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > SHOW TRIGGERS;
++-----------------------------------------------------+--------+-------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| Trigger                                             | Event  | Table             | Statement
+
+| Timing | Created                | sql_mode
+                                  | Definer        | character_set_client | collation_connection | Database Collation |
++-----------------------------------------------------+--------+-------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+| actualizacion_en_cascada_cuentas_pacientes_detalles | UPDATE | cuentas_pacientes | BEGIN
+    UPDATE cuentas_pacientes_detalles SET cuentas_pacientes_id = NEW.cuentas_pacientes_id WHERE cuentas_pacientes_id = OLD.cuentas_pacientes_id;
+END | AFTER  | 2024-12-07 14:17:14.02 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| borrado_en_cascada_cuentas_pacientes_detalles       | DELETE | cuentas_pacientes | BEGIN
+    DELETE FROM cuentas_pacientes_detalles WHERE cuentas_pacientes_id = OLD.cuentas_pacientes_id;
+END                                                | AFTER  | 2024-12-07 14:16:55.15 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4
+     | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| actualizacion_en_cascada_direcciones_empleados      | UPDATE | empleados         | BEGIN
+    UPDATE direcciones_empleados SET empleados_id = NEW.empleados_id WHERE empleados_id = OLD.empleados_id;
+END                                      | AFTER  | 2024-12-07 14:17:53.75 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| borrado_en_cascada_direcciones_empleados            | DELETE | empleados         | BEGIN
+    DELETE FROM direcciones_empleados WHERE empleados_id = OLD.empleados_id;
+END                                                                     | AFTER  | 2024-12-07 14:17:36.59 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| actualizacion_en_cascada_formas_pago                | UPDATE | formas_pago       | BEGIN
+    UPDATE formas_pago_pacientes SET forma_pago_id = NEW.forma_pago_id WHERE forma_pago_id = OLD.forma_pago_id;
+END                                  | AFTER  | 2024-12-07 14:19:28.85 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| borrado_en_cascada_formas_pago                      | DELETE | formas_pago       | BEGIN
+    DELETE FROM formas_pago_pacientes WHERE forma_pago_id = OLD.forma_pago_id;
+END                                                                   | AFTER  | 2024-12-07 14:19:16.47 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| actualizacion_en_cascada_cuartos                    | UPDATE | pacientes         | BEGIN
+    UPDATE cuartos SET paciente_id = NEW.paciente_id WHERE paciente_id = OLD.paciente_id;
+END                                                        | AFTER  | 2024-12-07 14:13:04.72 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| actualizacion_en_cascada_cuentas_pacientes          | UPDATE | pacientes         | BEGIN
+    UPDATE cuentas_pacientes SET paciente_id = NEW.paciente_id WHERE paciente_id = OLD.paciente_id;
+END                                              | AFTER  | 2024-12-07 14:14:42.66 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4
+   | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| actualizacion_en_cascada_formas_pago_pacientes      | UPDATE | pacientes         | BEGIN
+    UPDATE formas_pago_pacientes SET paciente_id = NEW.paciente_id WHERE paciente_id = OLD.paciente_id;
+END                                          | AFTER  | 2024-12-07 14:15:45.72 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| actualizacion_en_cascada_direcciones_pacientes      | UPDATE | pacientes         | BEGIN
+    UPDATE direcciones_pacientes SET paciente_id = NEW.paciente_id WHERE paciente_id = OLD.paciente_id;
+END                                          | AFTER  | 2024-12-07 14:18:45.20 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| borrado_en_cascada_cuartos                          | DELETE | pacientes         | BEGIN
+    DELETE FROM cuartos WHERE paciente_id = OLD.paciente_id;
+END                                                                                     | AFTER  | 2024-12-07 14:12:31.06 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| borrado_en_cascada_cuentas_pacientes                | DELETE | pacientes         | BEGIN
+    DELETE FROM cuentas_pacientes WHERE paciente_id = OLD.paciente_id;
+END                                                                           | AFTER  | 2024-12-07 14:14:21.59 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| borrado_en_cascada_formas_pago_pacientes            | DELETE | pacientes         | BEGIN
+    DELETE FROM formas_pago_pacientes WHERE paciente_id = OLD.paciente_id;
+END                                                                       | AFTER  | 2024-12-07 14:15:28.43 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| borrado_en_cascada_direcciones_pacientes            | DELETE | pacientes         | BEGIN
+    DELETE FROM direcciones_pacientes WHERE paciente_id = OLD.paciente_id;
+END                                                                       | AFTER  | 2024-12-07 14:18:18.10 | ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION | root@localhost | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++-----------------------------------------------------+--------+-------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+--------+------------------------+-----------------------------------------------------------------------------------------------------------------------+----------------+----------------------+----------------------+--------------------+
+14 rows in set (0.0010 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO pacientes (paciente_id, nombre, apellido_pat, apellido_mat, fecha_nacimiento, peso, altura, numero_seguro_social, genero) VALUES (100, 'Arthur', 'Morgan', 'López', '1952-02-22', 70, 1.89, '10110', 'masculino');
+Query OK, 1 row affected (0.0031 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO cuartos (paciente_id, numero_cuarto, inicio_estadia)
+                                        -> VALUES (100, 101, 2017-04-11);
+ERROR: 1292 (22007): Incorrect date value: '2002' for column 'inicio_estadia' at row 1
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO cuartos (paciente_id, numero_cuarto, inicio_estadia)  VALUES (100, 101, '2017-04-11');
+Query OK, 1 row affected (0.0026 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > DELETE FROM pacientes WHERE paciente_id = 100;
+Query OK, 1 row affected (0.0034 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > SELECT * FROM cuartos WHERE paciente_id = 100;
+Empty set (0.0005 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO pacientes (paciente_id, nombre, apellido_pat, apellido_mat, fecha_nacimiento, peso, altura, numero_seguro_social, genero) VALUES (100, 'Arthur', 'Morgan', 'López', '1952-02-22', 70, 1.89, '10110', 'masculino');
+Query OK, 1 row affected (0.0023 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > DELETE FROM pacientes WHERE paciente_id = 100;
+Query OK, 1 row affected (0.0028 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > SELECT * FROM direcciones_pacientes WHERE paciente_id = 100;
+Empty set (0.0005 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO pacientes (paciente_id, nombre, apellido_pat, apellido_mat, fecha_nacimiento, peso, altura, numero_seguro_social, genero)
+                                        -> VALUES (101, 'Danna', 'Flores', 'Lopez', '1955-02-24', 65, 1.89, '101111', 'femenino');
+Query OK, 1 row affected (0.0031 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO cuartos (paciente_id, numero_cuarto) VALUES (101, 102);
+ERROR: 1364 (HY000): Field 'inicio_estadia' doesn't have a default value
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO cuartos (paciente_id, numero_cuarto) VALUES (101, 102, '2002-12-12');
+ERROR: 1136 (21S01): Column count doesn't match value count at row 1
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO cuartos (paciente_id, numero_cuarto, inicio_estadia) VALUES (101, 102, '2002-12-12');
+Query OK, 1 row affected (0.0020 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO cuartos (paciente_id, numero_cuarto) VALUES (101, 102);
+ERROR: 1364 (HY000): Field 'inicio_estadia' doesn't have a default value
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > UPDATE pacientes SET paciente_id = 102 WHERE paciente_id = 101;
+Query OK, 1 row affected (0.0029 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > SELECT * FROM cuartos WHERE paciente_id = 102;
++-----------+-------------+---------------+----------------+-------------+
+| cuarto_id | paciente_id | numero_cuarto | inicio_estadia | fin_estadia |
++-----------+-------------+---------------+----------------+-------------+
+|        61 |         102 |           102 | 2002-12-12     | NULL        |
++-----------+-------------+---------------+----------------+-------------+
+1 row in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO direcciones_pacientes (paciente_id, direccion_id)
+                                        -> VALUES (102, 201);
+Query OK, 1 row affected (0.0018 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > UPDATE pacientes SET paciente_id = 103 WHERE paciente_id = 102;
+Query OK, 1 row affected (0.0030 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > SELECT * FROM direcciones_pacientes WHERE paciente_id = 103;
++-----------------------+-------------+--------------+
+| direccion_paciente_id | paciente_id | direccion_id |
++-----------------------+-------------+--------------+
+|                    64 |         103 |          201 |
++-----------------------+-------------+--------------+
+1 row in set (0.0004 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO pacientes (paciente_id, nombre, apellido_pat, apellido_mat, fecha_nacimiento, peso, altura, numero_seguro_social, genero)
+                                        -> VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino')            SELECT * FROM direcciones_pacientes WHERE paciente_id = 103;                                          SELECT * FROM direcciones_pacientes WHERE paciente_id = 103;                                          SELECT * FROM direcciones_pacientes WHERE paciente_id = 103;
+                                        -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO pacientes (paciente_id, nombre, apellido_pat, apellido_mat, fecha_nacimiento, peso, altura, numero_seguro_social, genero)
+                                        ->                                         -> VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino');
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200'' at line 2
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO pacientes (paciente_id, nombre, apellido_pat, apellido_mat, fecha_nacimiento, peso, altura, numero_seguro_social, genero)
+                                        -> VALUES (200, 'Carlos', 'Martínez', 'Rivas', '1998-12-10', 72, 1.80, '100200', 'masculino');
+Query OK, 1 row affected (0.0083 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO cuartos (paciente_id, numero_cuarto, inicio_estadia)
+                                        -> VALUES (200, 301, '2023-12-01');
+Query OK, 1 row affected (0.0023 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO cuentas_pacientes (paciente_id, forma_pago_pac_id, monto_total)
+                                        -> VALUES (200, 1, 5000);
+ERROR: 1054 (42S22): Unknown column 'monto_total' in 'field list'
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO cuentas_pacientes (paciente_id, forma_pago_pac_id) VALUES (200, 1);
+ERROR: 1364 (HY000): Field 'fecha_emision' doesn't have a default value
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO cuentas_pacientes (cuentas_pacientes_id, paciente_id, forma_pago_pac_id, fecha_emision)
+                                        -> VALUES (200, 200, 1, '2024-01-01');
+Query OK, 1 row affected (0.0065 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO formas_pago_pacientes (paciente_id, forma_pago_id)
+                                        -> VALUES (200, 2);
+Query OK, 1 row affected (0.0044 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > INSERT INTO direcciones_pacientes (paciente_id, direccion_id)
+                                        -> VALUES (200, 401);
+Query OK, 1 row affected (0.0016 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > DELETE FROM pacientes WHERE paciente_id = 200;
+Query OK, 1 row affected (0.0032 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > SELECT * FROM cuartos WHERE paciente_id = 200;
+Empty set (0.0004 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > SELECT * FROM cuentas_pacientes WHERE paciente_id = 200;
+Empty set (0.0004 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > SELECT * FROM formas_pago_pacientes WHERE paciente_id = 200;
+Empty set (0.0005 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL > SELECT * FROM direcciones_pacientes WHERE paciente_id = 200;
+Empty set (0.0004 sec)
+ MySQL  localhost:3306 ssl  tbd3_ex  SQL >
